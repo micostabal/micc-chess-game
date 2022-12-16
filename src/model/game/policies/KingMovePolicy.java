@@ -17,7 +17,7 @@ public class KingMovePolicy extends MovePolicy {
   @Override
   public Map<Position, GameMove> calculateGameMoves(
       Position position,
-      Board boar,
+      Board board,
       BoardOrientation forwardOrientation
   ) {
     return new HashMap<Position, GameMove>();

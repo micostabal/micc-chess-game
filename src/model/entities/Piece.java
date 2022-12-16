@@ -46,4 +46,12 @@ public class Piece {
   public UUID getId() {
     return id;
   }
+
+  public int getTurnsAlive() {
+    return turnsAlive;
+  }
+
+  public int getMovesSoFar() {
+    return movesSoFar;
+  }
 }

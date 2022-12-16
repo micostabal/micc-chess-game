@@ -1,0 +1,70 @@
+package test.model.games.policies;
+
+import model.board.Board;
+import model.board.BoardDisplacement;
+import model.board.Position;
+import model.entities.Piece;
+import model.enums.BoardMoveDirection;
+import model.enums.BoardOrientation;
+import model.enums.Color;
+import model.enums.PieceType;
+import model.game.moves.Displacement;
+import model.game.moves.GameMove;
+import model.game.moves.Capture;
+import model.game.policies.MovePolicy;
+import model.game.policies.MoveWithDisplacementsUntilPieceMP;
+import model.game.policies.PawnMovePolicy;
+import org.hamcrest.MatcherAssert;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import java.util.LinkedList;
+import java.util.Map;
+
+import static org.hamcrest.CoreMatchers.instanceOf;
+import static org.junit.Assert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+public class PawnMovePolicyTest {
+
+  public Board board;
+  public Piece piece;
+  public Position position;
+  public BoardOrientation orientation = BoardOrientation.UP;
+
+  @BeforeEach
+  public void initTests() {
+    this.board = new Board();
+    this.position = new Position('C', 1);
+    this.piece = new Piece(Color.WHITE, PieceType.PAWN);
+    this.board.putPiece(this.position, this.piece);
+  }
+
+  @Test
+  public void ShouldGenerateTwoDisplacementsInTheInitialSetting() {
+    LinkedList<BoardDisplacement> displacements = new LinkedList<>();
+    displacements.add(new BoardDisplacement(BoardMoveDirection.UP, 1));
+
+    Piece opponentPiece = new Piece(Color.BLACK, PieceType.PAWN);
+    this.board.putPiece(new Position('B', 2), opponentPiece);
+
+    MovePolicy pawnMovePolicy = new PawnMovePolicy();
+
+    Map<Position, GameMove> calculatedGameMoves = pawnMovePolicy.calculateGameMoves(
+        this.position,
+        this.board,
+        this.orientation
+    );
+
+    GameMove firstDisplacement = calculatedGameMoves.get(new Position('C', 2));
+    GameMove secondDisplacement = calculatedGameMoves.get(new Position('C', 3));
+    GameMove leftCapture = calculatedGameMoves.get(new Position('B', 2));
+
+    MatcherAssert.assertThat(leftCapture,instanceOf(Capture.class));
+    MatcherAssert.assertThat(firstDisplacement, instanceOf(Displacement.class));
+    MatcherAssert.assertThat(secondDisplacement,instanceOf(Displacement.class));
+
+  }
+
+}
