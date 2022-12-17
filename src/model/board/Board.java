@@ -91,11 +91,10 @@ public class Board {
     }
   }
 
-  private List<Piece> getPieces() {
+  public List<Piece> getPieces() {
     List<Piece> piecesList = new LinkedList<>();
     for (int i=0;i<BOARD_DIMENSION;i++) {
       for (int j=0;j< INDEX_CHARACTERS.length();j++) {
-        Optional<Piece> value = Optional.empty();
         Position position = new Position(INDEX_CHARACTERS.charAt(j), i);
         Optional<Piece> optionalPiece = this.pieces.get(position);
         if (!optionalPiece.isEmpty()) {

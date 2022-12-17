@@ -5,7 +5,6 @@ import model.board.BoardDisplacement;
 import model.board.BoardDisplacementResult;
 import model.board.Position;
 import model.entities.Piece;
-import model.enums.BoardMoveDirection;
 import model.enums.BoardOrientation;
 import model.game.moves.Capture;
 import model.game.moves.Displacement;
@@ -19,11 +18,11 @@ import java.util.stream.Collectors;
 public class MoveWithDisplacementsUntilPieceMP extends MovePolicy {
 
   private List<BoardDisplacement> displacements;
-  private int times;
+  private int limit;
 
-  public MoveWithDisplacementsUntilPieceMP(List<BoardDisplacement> displacements, int times) {
+  public MoveWithDisplacementsUntilPieceMP(List<BoardDisplacement> displacements, int limit) {
     this.displacements=displacements;
-    this.times=times;
+    this.limit=limit;
   }
 
   @Override
@@ -33,7 +32,7 @@ public class MoveWithDisplacementsUntilPieceMP extends MovePolicy {
 
     Piece pieceToMove = board.getPiece(position);
 
-    for (int time=0;time<this.times;time++) {
+    for (int time=0;time<this.limit;time++) {
       BoardDisplacementResult displacementResult = Board.executeDisplacements(
         currentPosition,
         this.displacements

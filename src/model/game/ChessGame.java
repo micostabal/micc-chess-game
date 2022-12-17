@@ -19,15 +19,17 @@ public class ChessGame {
     );
   }
 
+  private void movePostProcessing(Piece piece) {
+    piece.increaseMovesSoFar();
+    this.chessLogic.updateTurnsAlive(this.board);
+    this.switchCurrentPlayerTurn();
+  }
+
   public void playMove(GameMove move) {
     Position initialPosition = move.getInitial();
     Piece piece = this.board.getPiece(initialPosition);
-
     move.execute(this.board);
-
-    piece.increaseMovesSoFar();
-
-    this.switchCurrentPlayerTurn();
+    movePostProcessing(piece);
   }
 
 
