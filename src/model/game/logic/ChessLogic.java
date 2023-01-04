@@ -118,7 +118,7 @@ public class ChessLogic {
 
     this.piecesLogic.put(
         PieceType.KNIGHT,
-        getRookBoardDisplacements()
+        getKnightBoardDisplacements()
             .stream()
             .map( listOfBoardDisplacements ->
                 new MoveWithDisplacementsUntilPieceMP(
@@ -169,7 +169,7 @@ public class ChessLogic {
     return allDirections;
   }
 
-  private static List<List<BoardDisplacement>> getRookBoardDisplacements() {
+  private static List<List<BoardDisplacement>> getKnightBoardDisplacements() {
     List<List<BoardDisplacement>> rookDisplacements = new LinkedList<>();
     for (BoardMoveDirection mainDirection: List.of(BoardMoveDirection.UP, BoardMoveDirection.DOWN)) {
       for (BoardMoveDirection sideDirection: List.of(BoardMoveDirection.LEFT, BoardMoveDirection.RIGHT)) {

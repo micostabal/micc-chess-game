@@ -148,10 +148,25 @@ public class ChessLogicTest {
 
   @Test
   public void shouldHaveSoundKnightLogic() {
-    Position position = new Position('B', 1);
+    Position position = new Position('D', 3);
 
-    Piece rook = new Piece(Color.WHITE, PieceType.ROOK);
-    board.putPiece(position, rook);
+    Piece knight = new Piece(Color.WHITE, PieceType.KNIGHT);
+    board.putPiece(position, knight);
+
+    List<GameMove> possibleMoves = chessLogic.getValidMoves(position, board);
+    assertEquals(8, possibleMoves.size());
+    List<Position> expectedPositions = List.of(
+        new Position('C', 5),
+        new Position('E', 5),
+        new Position('C', 1),
+        new Position('E', 1),
+        new Position('B', 4),
+        new Position('B', 2),
+        new Position('F', 4),
+        new Position('F', 2)
+    );
+    assertPositionsExist(expectedPositions, possibleMoves);
+
   }
 
   private void assertPositionsExist(List<Position> expectedPositions, List<GameMove> moves) {
