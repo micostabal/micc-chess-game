@@ -10,6 +10,7 @@ import model.game.policies.MoveWithDisplacementsUntilPieceMP;
 import org.junit.jupiter.api.Test;
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -19,8 +20,9 @@ public class MoveWithDisplacementsUntilPieceMPTest extends BaseMovePolicyTest {
 
   @Test
   public void ShouldBeAbleToGiveAllPossibleDisplacements() {
-    LinkedList<BoardDisplacement> displacements = new LinkedList<>();
-    displacements.add(new BoardDisplacement(BoardMoveDirection.UP, 1));
+    List<BoardDisplacement> displacements = List.of(
+        new BoardDisplacement(BoardMoveDirection.UP, 1)
+    );
 
     MovePolicy movePolicy = new MoveWithDisplacementsUntilPieceMP(
       displacements,

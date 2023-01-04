@@ -20,6 +20,7 @@ import java.util.stream.Collectors;
 
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ChessLogicTest {
 
@@ -107,13 +108,62 @@ public class ChessLogicTest {
     assertEquals(21, possibleMoves.size());
   }
 
-  // TODO
   @Test
-  public void shouldHaveSoundBishopLogic() {}
+  public void shouldHaveSoundBishopLogic() {
+    Position position = new Position('B', 1);
+
+    Piece bishop = new Piece(Color.WHITE, PieceType.BISHOP);
+    board.putPiece(position, bishop);
+
+    List<GameMove> possibleMoves = chessLogic.getValidMoves(position, board);
+
+    assertEquals(9, possibleMoves.size());
+
+    List<Position> expectedPositions = List.of(
+      new Position('A', 2),
+      new Position('C', 0),
+      new Position('H', 7)
+    );
+    assertPositionsExist(expectedPositions, possibleMoves);
+  }
 
   @Test
-  public void shouldHaveSoundRookLogic() {}
+  public void shouldHaveSoundRookLogic() {
+    Position position = new Position('B', 1);
+
+    Piece rook = new Piece(Color.WHITE, PieceType.ROOK);
+    board.putPiece(position, rook);
+
+    List<GameMove> possibleMoves = chessLogic.getValidMoves(position, board);
+
+    assertEquals(14, possibleMoves.size());
+    List<Position> expectedPositions = List.of(
+        new Position('B', 7),
+        new Position('H', 1),
+        new Position('B', 0),
+        new Position('A', 1)
+    );
+    assertPositionsExist(expectedPositions, possibleMoves);
+  }
 
   @Test
-  public void shouldHaveSoundKnightLogic() {}
+  public void shouldHaveSoundKnightLogic() {
+    Position position = new Position('B', 1);
+
+    Piece rook = new Piece(Color.WHITE, PieceType.ROOK);
+    board.putPiece(position, rook);
+  }
+
+  private void assertPositionsExist(List<Position> expectedPositions, List<GameMove> moves) {
+    List<Position> endPositions = moves
+        .stream()
+        .map( move -> move.getEnd())
+        .collect(Collectors.toList());
+
+    for(Position expectedPosition : expectedPositions) {
+      assertTrue(
+          endPositions.contains(expectedPosition)
+      );
+    }
+  }
 }
