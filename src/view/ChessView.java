@@ -1,5 +1,7 @@
 package view;
 
+import view.state.ChessBoardStateType;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowEvent;
@@ -63,7 +65,7 @@ public class ChessView extends JFrame {
     // Right panel
 
     ChessBoard chessBoard = new ChessBoard();
-    chessBoard.initializeGUI();
+    chessBoard.setChessBoardState(ChessBoardStateType.ACTIVE);
     JScrollPane chessBoardPaneRight = new JScrollPane(chessBoard.getGui());
 
     JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
