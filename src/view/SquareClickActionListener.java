@@ -1,21 +1,23 @@
 package view;
 
+import controller.ChessBoardController;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class SquareClickActionListener implements ActionListener {
-  private ChessBoard chessBoard;
+  private ChessBoardController chessBoardController;
   private int vertical;
   private int horizontal;
 
-  public SquareClickActionListener(ChessBoard chessBoard, int vertical, int horizontal) {
-    this.chessBoard=chessBoard;
+  public SquareClickActionListener(ChessBoardController chessBoardController, int vertical, int horizontal) {
+    this.chessBoardController=chessBoardController;
     this.vertical=vertical;
     this.horizontal=horizontal;
   }
 
   @Override
   public void actionPerformed(ActionEvent e) {
-    chessBoard.handleSquareClick(vertical, horizontal);
+    chessBoardController.handleSquareClick(vertical, horizontal);
   }
 }

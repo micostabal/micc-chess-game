@@ -1,6 +1,7 @@
 package view;
 
-import view.state.ChessBoardStateType;
+import controller.ChessBoardController;
+import model.game.ChessGame;
 
 import javax.swing.*;
 import java.awt.*;
@@ -64,9 +65,15 @@ public class ChessView extends JFrame {
 
     // Right panel
 
-    ChessBoard chessBoard = new ChessBoard();
-    chessBoard.setChessBoardState(ChessBoardStateType.ACTIVE);
-    JScrollPane chessBoardPaneRight = new JScrollPane(chessBoard.getGui());
+    ChessBoardController chessBoardController = new ChessBoardController();
+
+    ChessBoardView chessBoardView = new ChessBoardView(chessBoardController);
+    ChessGame chessModel = new ChessGame();
+
+    chessBoardController.setChessBoardView(chessBoardView);
+    chessBoardController.setChessModel(chessModel);
+
+    JScrollPane chessBoardPaneRight = new JScrollPane(chessBoardView.getGui());
 
     JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
     splitPane.setRightComponent(chessBoardPaneRight);

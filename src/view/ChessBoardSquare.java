@@ -1,6 +1,8 @@
 package view;
 
 
+import controller.ChessBoardController;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -8,18 +10,16 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 
 public class ChessBoardSquare extends JButton {
-  private boolean isClicked;
   private int vertical;
   private int horizontal;
 
   public ChessBoardSquare(int vertical, int horizontal) {
     super();
-    this.isClicked=false;
     this.vertical=vertical;
     this.horizontal=horizontal;
   }
 
-  public void initialize(ChessBoard chessBoard) {
+  public void initialize(ChessBoardController chessBoardController) {
     setMargin(new Insets(0,0,0,0));
     setOpaque(true);
     setContentAreaFilled(true);
@@ -27,6 +27,7 @@ public class ChessBoardSquare extends JButton {
 
     String imagePath = "./icons/pieces/w_bishop_1x.png";
 
+    // TODO: Move this images to enum maps
     if ((vertical+horizontal)>5) {
       ImageIcon icon = new ImageIcon(
           new BufferedImage(45, 45, BufferedImage.TYPE_INT_ARGB));
@@ -41,16 +42,6 @@ public class ChessBoardSquare extends JButton {
     }
     setBackground( (vertical+horizontal)%2==0 ? Color.WHITE : Color.BLACK );
 
-    this.addActionListener(new SquareClickActionListener(chessBoard, vertical, horizontal));
-  }
-
-
-
-  public boolean isClicked() {
-    return isClicked;
-  }
-
-  public void setClicked(boolean clicked) {
-    isClicked = clicked;
+    this.addActionListener(new SquareClickActionListener(chessBoardController, vertical, horizontal));
   }
 }
